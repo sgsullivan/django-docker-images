@@ -48,5 +48,7 @@ services:
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
       - /var/sites/${COMPOSE_PROJECT_NAME}/.ssh:/root/.ssh
+    ports:
+      - 22:${SSH_PORT}
     image: sgsullivan/ubuntu-20.04-ssh:latest
     restart: always
