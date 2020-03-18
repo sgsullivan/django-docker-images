@@ -44,3 +44,9 @@ services:
     depends_on:
       - rabbitmq
       - web
+  ssh:
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
+      - /var/sites/${COMPOSE_PROJECT_NAME}/.ssh:/root/.ssh
+    image: sgsullivan/ubuntu-20.04-ssh:latest
+    restart: always
