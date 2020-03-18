@@ -9,6 +9,11 @@ if [[ ! -e /app/${COMPOSE_PROJECT_NAME} ]]; then
     django-admin startproject ${COMPOSE_PROJECT_NAME}
 fi
 
+# install any user specific modules
+if [[ -e requirements.txt ]]; then
+    pip install -r requirements.txt
+fi
+
 cp -p /lw/settings.py ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
 cp -Rp /lw/liquidweb ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
 python /app/${COMPOSE_PROJECT_NAME}/manage.py wait_for_db
