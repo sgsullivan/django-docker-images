@@ -11,7 +11,7 @@ services:
   web:
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
-    image: sgsullivan/python3-django-celery:latest
+    image: sgsullivan/python3-django-postgres-celery-rabbitmq:latest
     restart: always
     command: /lw/bootstrap
     environment:
@@ -33,7 +33,7 @@ services:
   celery:
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
-    image: sgsullivan/python3-django-celery:latest
+    image: sgsullivan/python3-django-postgres-celery-rabbitmq:latest
     restart: always
     command: /lw/bootstrap-celery
     environment:
