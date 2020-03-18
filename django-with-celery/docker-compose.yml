@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  postgres:
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    image: postgres
+    restart: always
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/postgresql:/var/lib/postgresql/data
+  web:
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
+    image: sgsullivan/python3-django-celery:latest
+    restart: always
+    command: /lw/bootstrap
+    environment:
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - WEB_PORT=${WEB_PORT}
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    depends_on:
+      - postgres
+  rabbitmq:
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/rabbitmq:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RMQ_PASSWORD}
+    image: rabbitmq:3-management
+    restart: always
+  celery:
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
+    image: sgsullivan/python3-django-celery:latest
+    restart: always
+    command: /lw/bootstrap-celery
+    environment:
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      - RMQ_CLUSTER=${RMQ_CLUSTER}
+      - RMQ_USER=${RMQ_USER}
+      - RMQ_PASSWORD=${RMQ_PASSWORD}
+    depends_on:
+      - rabbitmq
+      - web
