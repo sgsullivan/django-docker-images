@@ -11,7 +11,7 @@ services:
   web:
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
-    build: dockerfiles/app
+    image: sgsullivan/python3-django:latest
     restart: always
     command: /lw/bootstrap
     environment:
