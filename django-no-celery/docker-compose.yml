@@ -16,6 +16,7 @@ services:
     command: /lw/bootstrap
     environment:
       - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "8000:8000"
     depends_on:
