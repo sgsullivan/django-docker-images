@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  db:
+  postgres:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     image: postgres
@@ -11,7 +11,7 @@ services:
   web:
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
-    image: sgsullivan/python3-django:latest
+    image: sgsullivan/python3-django-postgres-celery-rabbitmq:latest
     restart: always
     command: /lw/bootstrap
     environment:
@@ -21,4 +21,4 @@ services:
     ports:
       - ${WEB_PORT}:${WEB_PORT}
     depends_on:
-      - db
+      - postgres
