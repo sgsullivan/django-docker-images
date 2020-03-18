@@ -14,4 +14,4 @@ cp -Rp /lw/liquidweb ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
 python /app/${COMPOSE_PROJECT_NAME}/manage.py wait_for_db
 
 python /app/${COMPOSE_PROJECT_NAME}/manage.py migrate
-python /app/${COMPOSE_PROJECT_NAME}/manage.py runserver 0.0.0.0:8000
+python /app/${COMPOSE_PROJECT_NAME}/manage.py runserver 0.0.0.0:${WEB_PORT}

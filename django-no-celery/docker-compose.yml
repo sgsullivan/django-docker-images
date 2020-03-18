@@ -17,7 +17,8 @@ services:
     environment:
       - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - WEB_PORT=${WEB_PORT}
     ports:
-      - "8000:8000"
+      - ${WEB_PORT}:${WEB_PORT}
     depends_on:
       - db
