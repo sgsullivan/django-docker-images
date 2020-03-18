@@ -1,5 +1,8 @@
 #!/bin/bash
 
-python /app/${COMPOSE_PROJECT_NAME}/manage.py create_rmq_definition
-python /app/${COMPOSE_PROJECT_NAME}/manage.py run_worker
+set -eux
 
+cd /app/${COMPOSE_PROJECT_NAME}
+
+python manage.py configure_rabbitmq
+python manage.py run_celery_worker

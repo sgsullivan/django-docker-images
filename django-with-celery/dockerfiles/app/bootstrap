@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -eux
 
 cd /app
 
@@ -16,7 +16,10 @@ fi
 
 cp -p /lw/settings.py ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
 cp -Rp /lw/liquidweb ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
-python /app/${COMPOSE_PROJECT_NAME}/manage.py wait_for_db
+cp -p /lw/celery.py ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
 
-python /app/${COMPOSE_PROJECT_NAME}/manage.py migrate
-python /app/${COMPOSE_PROJECT_NAME}/manage.py runserver 0.0.0.0:${WEB_PORT}
+cd /app/${COMPOSE_PROJECT_NAME}
+
+python manage.py wait_for_db
+python manage.py migrate
+python manage.py runserver 0.0.0.0:${WEB_PORT}
