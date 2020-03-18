@@ -1,3 +1,7 @@
 #!/bin/bash
 
-export COMPOSE_PROJECT_NAME=erste && export POSTGRES_PASSWORD=p455w0rd && docker-compose -p erste down
+set -eu
+
+PROJECT_NAME=$1
+
+export COMPOSE_PROJECT_NAME=${PROJECT_NAME} && export POSTGRES_PASSWORD=${POSTGRES_PASSWORD} && docker-compose -p ${PROJECT_NAME} down
