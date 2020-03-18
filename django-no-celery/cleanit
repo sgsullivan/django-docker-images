@@ -1,0 +1,7 @@
+docker ps -a|awk '{print $1}'|grep -v CONT|xargs docker rm --force
+docker images -a|awk '{print $3}'|grep -v IMAGE|xargs docker rmi --force
+
+docker ps -a
+docker images -a
+
+rm -rf /var/sites/*

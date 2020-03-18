@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    image: postgres
+    restart: always
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/postgresql:/var/lib/postgresql/data
+  web:
+    volumes:
+      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
+    build: dockerfiles/app
+    restart: always
+    command: /lw/bootstrap
+    environment:
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

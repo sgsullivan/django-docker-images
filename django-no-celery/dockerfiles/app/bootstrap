@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -eu
+
+cd /app
+
+if [[ ! -e /app/${COMPOSE_PROJECT_NAME} ]]; then
+    echo "Creating django project [${COMPOSE_PROJECT_NAME}]..."
+    django-admin startproject ${COMPOSE_PROJECT_NAME}
+fi
+
+cp -p /lw/settings.py ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
+cp -Rp /lw/liquidweb ${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/
+python /app/${COMPOSE_PROJECT_NAME}/manage.py wait_for_db
+
+python /app/${COMPOSE_PROJECT_NAME}/manage.py migrate
+python /app/${COMPOSE_PROJECT_NAME}/manage.py runserver 0.0.0.0:8000
