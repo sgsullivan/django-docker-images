@@ -17,6 +17,13 @@ export RMQ_PASSWORD=${RMQ_PASSWORD}
 [[ -d /var/sites/${PROJECT_NAME}/django ]] || mkdir -p /var/sites/${PROJECT_NAME}/django
 
 useradd ${PROJECT_NAME} -d /home/${PROJECT_NAME} -s /bin/bash
+
+[[ -n ${SSH_PUB_KEY:-} ]] && {
+  mkdir -p /var/sites/${PROJECT_NAME}/django/.ssh
+  chmod 700 /var/sites/${PROJECT_NAME}/django/.ssh
+  echo "${SSH_PUB_KEY}" > /var/sites/${PROJECT_NAME}/django/.ssh/authorized_keys
+}
+
 chown -R ${PROJECT_NAME}.${PROJECT_NAME} /var/sites/${PROJECT_NAME}/django
 
 docker-compose -p ${PROJECT_NAME} up --build -d
