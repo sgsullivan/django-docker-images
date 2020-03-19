@@ -11,4 +11,4 @@ python manage.py run_celery_worker
 
 RUNIT
 
-su - ${COMPOSE_PROJECT_NAME} -c "${CMDS}"
+su -p ${COMPOSE_PROJECT_NAME} -c "${CMDS}"

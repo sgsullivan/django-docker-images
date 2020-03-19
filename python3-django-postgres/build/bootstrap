@@ -25,4 +25,4 @@ python /app/${COMPOSE_PROJECT_NAME}/manage.py runserver 0.0.0.0:${WEB_PORT}
 
 RUNIT
 
-su - ${COMPOSE_PROJECT_NAME} -c "${CMDS}"
+su -p ${COMPOSE_PROJECT_NAME} -c "${CMDS}"
