@@ -15,11 +15,9 @@ export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 useradd ${PROJECT_NAME} -d /home/${PROJECT_NAME} -s /bin/bash
 
-[[ -n ${SSH_PUB_KEY:-} ]] && {
-  mkdir -p /var/sites/${PROJECT_NAME}/django/.ssh
-  chmod 700 /var/sites/${PROJECT_NAME}/django/.ssh
-  echo "${SSH_PUB_KEY}" > /var/sites/${PROJECT_NAME}/django/.ssh/authorized_keys
-}
+mkdir -p /var/sites/${PROJECT_NAME}/django/.ssh
+chmod 700 /var/sites/${PROJECT_NAME}/django/.ssh
+echo "${SSH_PUB_KEY}" > /var/sites/${PROJECT_NAME}/django/.ssh/authorized_keys
 
 cat << EOF > /var/sites/${PROJECT_NAME}/django/.profile
 export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
