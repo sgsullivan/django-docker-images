@@ -13,7 +13,9 @@ export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
 [[ -d /var/sites/${PROJECT_NAME}/django ]] || mkdir -p /var/sites/${PROJECT_NAME}/django
 
+set +e
 useradd ${PROJECT_NAME} -d /home/${PROJECT_NAME} -s /bin/bash
+set -e
 
 mkdir -p /var/sites/${PROJECT_NAME}/django/.ssh
 chmod 700 /var/sites/${PROJECT_NAME}/django/.ssh

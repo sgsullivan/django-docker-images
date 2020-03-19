@@ -1,8 +1,10 @@
 #!/bin/bash
 
-set -eux
+set -ux
 
 cd /app
+
+read -r -d '' CMDS <<RUNIT
 
 if [[ ! -e /app/${COMPOSE_PROJECT_NAME} ]]; then
     echo "Creating django project [${COMPOSE_PROJECT_NAME}]..."
@@ -23,3 +25,7 @@ cd /app/${COMPOSE_PROJECT_NAME}
 python manage.py wait_for_db
 python manage.py migrate
 python manage.py runserver 0.0.0.0:${WEB_PORT}
+
+RUNIT
+
+su - ${COMPOSE_PROJECT_NAME} -c "${CMDS}"

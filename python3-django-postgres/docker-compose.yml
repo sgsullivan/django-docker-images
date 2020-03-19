@@ -11,6 +11,9 @@ services:
       - /var/sites/${COMPOSE_PROJECT_NAME}/postgresql:/var/lib/postgresql/data
   web:
     volumes:
+      - /etc/passwd:/etc/passwd
+      - /etc/group:/etc/group
+      - /etc/shadow:/etc/shadow
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
     image: sgsullivan/python3-django-postgres:latest
     restart: always

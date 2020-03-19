@@ -1,8 +1,14 @@
 #!/bin/bash
 
-set -eux
+set -ux
+
+read -r -d '' CMDS <<RUNIT
 
 cd /app/${COMPOSE_PROJECT_NAME}
 
 python manage.py configure_rabbitmq
 python manage.py run_celery_worker
+
+RUNIT
+
+su - ${COMPOSE_PROJECT_NAME} -c "${CMDS}"
