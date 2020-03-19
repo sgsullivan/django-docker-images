@@ -6,6 +6,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     image: postgres
     restart: always
+    hostname: postgres
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/postgresql:/var/lib/postgresql/data
   web:
@@ -13,6 +14,7 @@ services:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
     image: sgsullivan/python3-django-postgres-celery-rabbitmq:latest
     restart: always
+    hostname: django
     command: /lw/bootstrap
     environment:
       - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
