@@ -12,7 +12,7 @@ services:
   web:
     volumes:
       - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
-    image: sgsullivan/python3-django-postgres-celery-rabbitmq:latest
+    image: sgsullivan/python3-django-postgres:latest
     restart: always
     hostname: django
     command: /lw/bootstrap
@@ -24,3 +24,21 @@ services:
       - ${WEB_PORT}:${WEB_PORT}
     depends_on:
       - postgres
+  ssh:
+    volumes:
+      - /etc/passwd:/etc/passwd
+      - /etc/group:/etc/group
+      - /etc/shadow:/etc/shadow
+      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/home/${COMPOSE_PROJECT_NAME}
+    ports:
+      - ${SSH_PORT}:22
+    environment:
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - RMQ_CLUSTER=${RMQ_CLUSTER}
+      - RMQ_USER=${RMQ_USER}
+      - RMQ_PASSWORD=${RMQ_PASSWORD}
+    image: sgsullivan/python3-django-postgres-ssh:latest
+    hostname: ${COMPOSE_PROJECT_NAME}
+    restart: always
+
