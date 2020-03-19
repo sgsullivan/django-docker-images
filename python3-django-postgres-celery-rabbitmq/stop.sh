@@ -11,3 +11,5 @@ export SSH_PORT=${SSH_PORT}
 export COMPOSE_PROJECT_NAME=${PROJECT_NAME}
 
 docker-compose -p ${PROJECT_NAME} down
+
+userdel ${PROJECT_NAME}

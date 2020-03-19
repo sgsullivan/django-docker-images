@@ -46,9 +46,12 @@ services:
       - web
   ssh:
     volumes:
-      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/app
-      - /var/sites/${COMPOSE_PROJECT_NAME}/.ssh:/root/.ssh
+      - /etc/passwd:/etc/passwd
+      - /etc/group:/etc/group
+      - /etc/shadow:/etc/shadow
+      - /var/sites/${COMPOSE_PROJECT_NAME}/django:/home/${COMPOSE_PROJECT_NAME}
     ports:
       - ${SSH_PORT}:22
-    image: sgsullivan/ubuntu-20.04-ssh:latest
+    image: sgsullivan/python3-django-postgres-celery-rabbitmq-ssh:latest
+    hostname: ${COMPOSE_PROJECT_NAME}
     restart: always
