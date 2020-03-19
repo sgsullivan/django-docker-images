@@ -16,7 +16,7 @@ export RMQ_PASSWORD=${RMQ_PASSWORD}
 
 [[ -d /var/sites/${PROJECT_NAME}/django ]] || mkdir -p /var/sites/${PROJECT_NAME}/django
 
-useradd ${PROJECT_NAME} -d /var/sites/${PROJECT_NAME}/django -s /bin/bash
+useradd ${PROJECT_NAME} -d /home/${PROJECT_NAME} -s /bin/bash
 chown -R ${PROJECT_NAME}.${PROJECT_NAME} /var/sites/${PROJECT_NAME}/django
 
 docker-compose -p ${PROJECT_NAME} up --build -d
